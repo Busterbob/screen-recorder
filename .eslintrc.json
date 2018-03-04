@@ -1,0 +1,34 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "jest": true
+    },
+    "globals": {
+        "chrome": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "extends": "airbnb-base",
+    "rules": {
+        "no-tabs":"off",
+        "indent": ["error", "tab", { "SwitchCase": 1 }],
+        "object-curly-newline":"off",
+        "consistent-return": "off",
+        "default-case": "off",
+        "react/jsx-uses-react": [1],
+        "react/jsx-uses-vars": [1],
+        "react/react-in-jsx-scope": [1]
+    }
+}

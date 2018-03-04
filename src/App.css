@@ -1,0 +1,14 @@
+button {
+	&.active {
+		font-weight: bold;
+	}
+}
+
+video {
+	width: 100%;
+	height: calc(100% - 200px);
+}
+
+.controls {
+	margin: 10px auto;
+}
