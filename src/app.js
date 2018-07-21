@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './assets/globals.css';
 import styles from './App.css';
+import Logo from './assets/svg/Logo';
 
 function getChromeVersion() {
 	const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
@@ -221,6 +223,10 @@ class App extends React.Component {
 		const { isRecording, type, hasSource, src, hasStarted } = this.state;
 		return (
 			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
+				<div className={styles.logo}>
+					<Logo />
+					<h1>Screen Recoder</h1>
+				</div>
 				<div className={styles.controls}>
 					What do you want to capture?<br />
 					<button onClick={() => this.setState({ type: 'screen' })} className={type === 'screen' ? styles.active : ''} disabled={isRecording}>Desktop</button>

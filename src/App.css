@@ -1,3 +1,15 @@
+@import './assets/variables.css';
+
+.app {
+	background: var(--super-gray);
+	box-sizing: border-box;
+	padding: 20px;
+}
+
+.logo {
+	text-align: center;
+}
+
 button {
 	&.active {
 		font-weight: bold;
@@ -10,5 +22,5 @@ video {
 }
 
 .controls {
-	margin: 10px auto;
+	margin: 10px 0;
 }
