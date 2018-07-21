@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/globals.css';
 import styles from './App.css';
-import Logo from './assets/svg/Logo';
+import { Logo, Desktop, Window, Tab, Camera } from './assets/svg';
+import AppearAfter from './AppearAfter';
+
 
 function getChromeVersion() {
 	const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
@@ -223,16 +225,20 @@ class App extends React.Component {
 		const { isRecording, type, hasSource, src, hasStarted } = this.state;
 		return (
 			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
-				<div className={styles.logo}>
-					<Logo />
-					<h1>Screen Recoder</h1>
-				</div>
+				<AppearAfter className={styles.logo}>
+					<div>
+						<Logo />
+						<h1>Screen Recoder</h1>
+					</div>
+				</AppearAfter>
 				<div className={styles.controls}>
-					What do you want to capture?<br />
-					<button onClick={() => this.setState({ type: 'screen' })} className={type === 'screen' ? styles.active : ''} disabled={isRecording}>Desktop</button>
-					<button onClick={() => this.setState({ type: 'window' })} className={type === 'window' ? styles.active : ''} disabled={isRecording}>Window</button>
-					<button onClick={() => this.setState({ type: 'tab' })} className={type === 'tab' ? styles.active : ''} hidden={chromeVersion < 53} disabled={isRecording}>Chrome Tab</button>
-					<button onClick={() => this.setState({ type: 'camera' })} className={type === 'camera' ? styles.active : ''} disabled={isRecording}>Camera</button>
+					<span className={styles.title}><h2>What do you want to capture?</h2></span>
+					<div className={styles.buttons}>
+						<button onClick={() => this.setState({ type: 'screen' })} className={type === 'screen' ? styles.active : ''} disabled={isRecording}><span><Desktop /></span> Desktop</button>
+						<button onClick={() => this.setState({ type: 'window' })} className={type === 'window' ? styles.active : ''} disabled={isRecording}><span><Window /></span> Window</button>
+						<button onClick={() => this.setState({ type: 'tab' })} className={type === 'tab' ? styles.active : ''} hidden={chromeVersion < 53} disabled={isRecording}><span><Tab /></span>Chrome Tab</button>
+						<button onClick={() => this.setState({ type: 'camera' })} className={type === 'camera' ? styles.active : ''} disabled={isRecording}><span><Camera /></span>Camera</button>
+					</div>
 				</div>
 				<div className={styles.controls}>
 					Record audio?<br />
