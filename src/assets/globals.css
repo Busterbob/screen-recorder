@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,900');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,700');
 @import './variables.css';
 
 html,
@@ -43,7 +44,6 @@ h5,
 h6 {
 	font-family: var(--font-head);
 	font-weight: bold;
-	text-transform: uppercase;
 	margin: 0;
 	padding: 0;
 }

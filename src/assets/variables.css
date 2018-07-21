@@ -24,9 +24,9 @@
 @custom-media --screen-4k (min-width: 3870px);
 
 :root {
-	--font-text: 'Fira Sans', sans-serif;
+	--font-text: 'Roboto', sans-serif;
 	--font-head: 'Roboto', sans-serif;
-	--font-special: 'Gaegu', cursive;
+	--font-special: 'Roboto Mono', monospace;
 
 	--smaller-font-size: 12px;
 	--smaller-line-height: 1.3;
