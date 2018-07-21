@@ -2,12 +2,50 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/globals.css';
 import styles from './App.css';
-import { Logo } from './assets/svg';
+import { Logo, Desktop, Window, Tab, Camera } from './assets/svg';
 import AppearAfter from './AppearAfter';
-import VideoSource from './VideoSource';
-import { getChromeVersion } from './utils';
+import Source from './Source';
 
-const chromeVersion = getChromeVersion();
+const videoSources = [
+	{
+		type: 'screen',
+		icon: Desktop,
+		label: 'Screen',
+	},
+	{
+		type: 'window',
+		icon: Window,
+		label: 'Window',
+	},
+	{
+		type: 'tab',
+		icon: Tab,
+		label: 'Chrome Tab',
+	},
+	{
+		type: 'camera',
+		icon: Camera,
+		label: 'Camera',
+	},
+];
+
+const audioSources = [
+	{
+		type: 'none',
+		icon: Desktop,
+		label: 'None',
+	},
+	{
+		type: 'mic',
+		icon: Window,
+		label: 'Microphone',
+	},
+	{
+		type: 'system',
+		icon: Tab,
+		label: 'System',
+	},
+];
 
 function getUserMediaError() {
 	chrome.runtime.openOptionsPage();
@@ -44,7 +82,8 @@ class App extends React.Component {
 		includeAudioMic: false,
 		includeAudioSystem: false,
 		hasSource: false,
-		type: undefined,
+		videoSource: undefined,
+		audioSource: 'none',
 	};
 
 	audioStream;
@@ -53,16 +92,17 @@ class App extends React.Component {
 	recordedChunks = [];
 
 	setVideoSource = (type) => {
-		this.setState({ type });
+		this.setState({ videoSource: type });
 	}
 
-	setAudio = (event) => {
-		analytics(['_trackEvent', 'video', 'setAudio', event.target.value]);
-		switch (event.target.value) {
+	setAudioSource = (type) => {
+		analytics(['_trackEvent', 'video', 'setAudio', type]);
+		switch (type) {
 			case 'mic':
 				this.setState({
 					includeAudioMic: true,
 					includeAudioSystem: false,
+					audioSource: type,
 				});
 				navigator.getUserMedia({
 					audio: true,
@@ -73,19 +113,21 @@ class App extends React.Component {
 				this.setState({
 					includeAudioMic: false,
 					includeAudioSystem: true,
+					audioSource: type,
 				});
 				break;
 			default:
 				this.setState({
 					includeAudioMic: false,
 					includeAudioSystem: false,
+					audioSource: type,
 				});
 		}
 	}
 
 	record = () => {
 		console.log('Start recording');
-		analytics(['_trackEvent', 'video', 'recordingStarted', this.state.type]);
+		analytics(['_trackEvent', 'video', 'recordingStarted', this.state.videoSource]);
 		if (this.video) {
 			this.video.muted = true; // prevent audio loopback
 		}
@@ -96,8 +138,8 @@ class App extends React.Component {
 			window.moveTo(window.screenLeft, window.screenTop - (delta / 2));
 		}
 		this.recordedChunks = [];
-		const sourceType = [this.state.type];
-		switch (this.state.type) {
+		const sourceType = [this.state.videoSource];
+		switch (this.state.videoSource) {
 			case 'window':
 			case 'screen':
 			case 'tab':
@@ -223,7 +265,7 @@ class App extends React.Component {
 	}
 
 	render() {
-		const { isRecording, type, hasSource, src, hasStarted } = this.state;
+		const { isRecording, videoSource, audioSource, hasSource, src, hasStarted } = this.state;
 		return (
 			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
 				<AppearAfter className={styles.logo}>
@@ -234,19 +276,24 @@ class App extends React.Component {
 				</AppearAfter>
 				<div className={styles.controls}>
 					<span className={styles.title}><h2>What do you want to capture?</h2></span>
-					<VideoSource
-						type={type}
+					<Source
+						value={videoSource}
 						isRecording={isRecording}
-						onChange={this.setVideoSource} />
+						onChange={this.setVideoSource}
+						sources={videoSources}
+					/>
 				</div>
 				<div className={styles.controls}>
 					<span className={styles.title}><h2>Record audio?</h2></span>
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="none" disabled={isRecording} defaultChecked />None</label>
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="mic" disabled={isRecording} />Microphone</label>
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="system" hidden={chromeVersion < 51} disabled={isRecording} />System</label>
+					<Source
+						value={audioSource}
+						isRecording={isRecording}
+						onChange={this.setAudioSource}
+						sources={audioSources}
+					/>
 				</div>
 				<div className={styles.controls}>
-					<button onClick={this.record} hidden={isRecording || !type}>Start recording</button>
+					<button onClick={this.record} hidden={isRecording || !videoSource}>Start recording</button>
 					<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
 				</div>
 				{hasSource && <div>
