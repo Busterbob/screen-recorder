@@ -274,28 +274,34 @@ class App extends React.Component {
 						<h1>Screen Recoder</h1>
 					</div>
 				</AppearAfter>
-				<div className={styles.controls}>
-					<span className={styles.title}><h2>What do you want to capture?</h2></span>
-					<Source
-						value={videoSource}
-						isRecording={isRecording}
-						onChange={this.setVideoSource}
-						sources={videoSources}
-					/>
-				</div>
-				<div className={styles.controls}>
-					<span className={styles.title}><h2>Record audio?</h2></span>
-					<Source
-						value={audioSource}
-						isRecording={isRecording}
-						onChange={this.setAudioSource}
-						sources={audioSources}
-					/>
-				</div>
-				<div className={styles.controls}>
-					<button onClick={this.record} hidden={isRecording || !videoSource}>Start recording</button>
-					<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
-				</div>
+				<AppearAfter className={styles.controls} delay={300}>
+					<div>
+						<span className={styles.title}><h2>What do you want to capture?</h2></span>
+						<Source
+							value={videoSource}
+							isRecording={isRecording}
+							onChange={this.setVideoSource}
+							sources={videoSources}
+						/>
+					</div>
+				</AppearAfter>
+				<AppearAfter className={styles.controls} delay={400}>
+					<div>
+						<span className={styles.title}><h2>Record audio?</h2></span>
+						<Source
+							value={audioSource}
+							isRecording={isRecording}
+							onChange={this.setAudioSource}
+							sources={audioSources}
+						/>
+					</div>
+				</AppearAfter>
+				<AppearAfter className={styles.controls} delay={500}>
+					<div>
+						<button onClick={this.record} hidden={isRecording || !videoSource}>Start recording</button>
+						<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
+					</div>
+				</AppearAfter>
 				{hasSource && <div>
 					<div>
 						<video
