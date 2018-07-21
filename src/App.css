@@ -99,12 +99,42 @@ video {
 		margin: 10px -40px;
 		text-align: center;
 
+		&:global(.visible) {
+			& button {
+				opacity: 1;
+				transform: translateY(0);
+
+				&:nth-child(1) {
+					transition-delay: .1s;
+				}
+
+				&:nth-child(2) {
+					transition-delay: .2s;
+				}
+
+				&:nth-child(3) {
+					transition-delay: .3s;
+				}
+
+				&:nth-child(4) {
+					transition-delay: .4s;
+				}
+
+				&:nth-child(5) {
+					transition-delay: .5s;
+				}
+			}
+		}
+
 
 		& button {
 			@apply --resetButton;
 			margin: 20px;
 			font-size: var(--small-font-size);
 			font-family: var(--font-special);
+			opacity: 0;
+			transform: translateY(20px);
+			transition: all .5s ease;
 
 			&.active {
 				font-weight: bold;

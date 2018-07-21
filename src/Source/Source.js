@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from '../App.css';
+import AppearAfter from '../AppearAfter';
 
 function Button({
 	onClick,
@@ -19,17 +20,21 @@ function Button({
 
 function Source({ value, isRecording, onChange, sources }) {
 	return (
-		<div className={styles.buttons}>
-			{sources.map(source => (
-				<Button
-					onClick={() => onChange(source.type)}
-					className={value === source.type ? styles.active : ''}
-					disabled={isRecording}
-					icon={source.icon}
-					label={source.label}
-				/>
-			))}
-		</div>
+		<Fragment>
+			<AppearAfter className={styles.buttons}>
+				<div>
+					{sources.map(source => (
+						<Button
+							onClick={() => onChange(source.type)}
+							className={value === source.type ? styles.active : ''}
+							disabled={isRecording}
+							icon={source.icon}
+							label={source.label}
+						/>
+					))}
+				</div>
+			</AppearAfter>
+		</Fragment>
 	);
 }
 
