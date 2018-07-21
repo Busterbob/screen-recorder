@@ -5,13 +5,55 @@ import { getChromeVersion } from '../utils';
 
 const chromeVersion = getChromeVersion();
 
+function Button({
+	onClick,
+	className,
+	disabled,
+	label,
+	icon,
+}) {
+	const Icon = icon;
+	return (
+		<button onClick={onClick} className={className} disabled={disabled}>
+			<span><Icon /></span>
+			<span><Icon /></span>
+			{label}
+		</button>
+	);
+}
+
 function VideoSource({ type, isRecording, onChange }) {
 	return (
 		<div className={styles.buttons}>
-			<button onClick={() => onChange('screen')} className={type === 'screen' ? styles.active : ''} disabled={isRecording}><span><Desktop /></span> Desktop</button>
-			<button onClick={() => onChange('window')} className={type === 'window' ? styles.active : ''} disabled={isRecording}><span><Window /></span> Window</button>
-			<button onClick={() => onChange('tab')} className={type === 'tab' ? styles.active : ''} hidden={chromeVersion < 53} disabled={isRecording}><span><Tab /></span>Chrome Tab</button>
-			<button onClick={() => onChange('camera')} className={type === 'camera' ? styles.active : ''} disabled={isRecording}><span><Camera /></span>Camera</button>
+			<Button
+				onClick={() => onChange('screen')}
+				className={type === 'screen' ? styles.active : ''}
+				disabled={isRecording}
+				icon={Desktop}
+				label="Screen"
+			/>
+			<Button
+				onClick={() => onChange('window')}
+				className={type === 'window' ? styles.active : ''}
+				disabled={isRecording}
+				icon={Window}
+				label="Window"
+			/>
+			<Button
+				onClick={() => onChange('tab')}
+				className={type === 'tab' ? styles.active : ''}
+				hidden={chromeVersion < 53}
+				disabled={isRecording}
+				icon={Tab}
+				label="Chrome Tab"
+			/>
+			<Button
+				onClick={() => onChange('camera')}
+				className={type === 'camera' ? styles.active : ''}
+				disabled={isRecording}
+				icon={Camera}
+				label="Camera"
+			/>
 		</div>
 	);
 }
