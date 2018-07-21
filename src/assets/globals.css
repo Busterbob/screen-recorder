@@ -5,7 +5,7 @@
 :global(#app) {
 	box-sizing: border-box;
 	padding: 20px;
-	height: 100%;
+	min-height: 100%;
 }
 
 html,

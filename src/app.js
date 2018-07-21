@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import './assets/globals.css';
 import styles from './App.css';
 import { Logo, Desktop, Window, Tab, Camera } from './assets/svg';
@@ -317,6 +318,13 @@ class App extends React.Component {
 					}
 				</div>}
 				{hasSource && <div>
+					<AppearAfter className={classNames(styles.buttonContainer, styles.flex)} delay={500}>
+						<div>
+							<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
+							<button onClick={this.save} disabled={isRecording}>Save</button>
+							<button onClick={this.reset} disabled={isRecording}>Reset</button>
+						</div>
+					</AppearAfter>
 					<div>
 						<video
 							autoPlay={isRecording}
@@ -325,11 +333,6 @@ class App extends React.Component {
 							src={src}
 							controls={!isRecording}
 						/>
-					</div>
-					<div className={styles.controls}>
-						<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
-						<button onClick={this.save} disabled={isRecording}>Save</button>
-						<button onClick={this.reset} disabled={isRecording}>Reset</button>
 					</div>
 				</div>}
 			</div>
