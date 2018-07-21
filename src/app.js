@@ -2,14 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/globals.css';
 import styles from './App.css';
-import { Logo, Desktop, Window, Tab, Camera } from './assets/svg';
+import { Logo } from './assets/svg';
 import AppearAfter from './AppearAfter';
+import VideoSource from './VideoSource';
+import { getChromeVersion } from './utils';
 
-
-function getChromeVersion() {
-	const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
-	return raw ? parseInt(raw[2], 10) : false;
-}
+const chromeVersion = getChromeVersion();
 
 function getUserMediaError() {
 	chrome.runtime.openOptionsPage();
@@ -53,6 +51,10 @@ class App extends React.Component {
 	recorder;
 	localStream;
 	recordedChunks = [];
+
+	setVideoSource = (type) => {
+		this.setState({ type });
+	}
 
 	setAudio = (event) => {
 		analytics(['_trackEvent', 'video', 'setAudio', event.target.value]);
@@ -221,7 +223,6 @@ class App extends React.Component {
 	}
 
 	render() {
-		const chromeVersion = getChromeVersion();
 		const { isRecording, type, hasSource, src, hasStarted } = this.state;
 		return (
 			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
@@ -233,12 +234,10 @@ class App extends React.Component {
 				</AppearAfter>
 				<div className={styles.controls}>
 					<span className={styles.title}><h2>What do you want to capture?</h2></span>
-					<div className={styles.buttons}>
-						<button onClick={() => this.setState({ type: 'screen' })} className={type === 'screen' ? styles.active : ''} disabled={isRecording}><span><Desktop /></span> Desktop</button>
-						<button onClick={() => this.setState({ type: 'window' })} className={type === 'window' ? styles.active : ''} disabled={isRecording}><span><Window /></span> Window</button>
-						<button onClick={() => this.setState({ type: 'tab' })} className={type === 'tab' ? styles.active : ''} hidden={chromeVersion < 53} disabled={isRecording}><span><Tab /></span>Chrome Tab</button>
-						<button onClick={() => this.setState({ type: 'camera' })} className={type === 'camera' ? styles.active : ''} disabled={isRecording}><span><Camera /></span>Camera</button>
-					</div>
+					<VideoSource
+						type={type}
+						isRecording={isRecording}
+						onChange={this.setVideoSource} />
 				</div>
 				<div className={styles.controls}>
 					<span className={styles.title}><h2>Record audio?</h2></span>
