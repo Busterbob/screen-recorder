@@ -195,10 +195,11 @@ video {
 }
 
 .buttonContainer {
-
 	&:global(.visible) {
-		opacity: 1;
-		transform: translate(0);
+		& button {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	& button {
@@ -211,7 +212,9 @@ video {
 		box-sizing: border-box;
 		padding: 20px;
 		border-radius: 30px;
-		transition: all .3s ease;
+		opacity: 0;
+		transform: translateY(20px);
+		transition: all .5s ease;
 
 		&:hover {
 			background: var(--secondary-color);

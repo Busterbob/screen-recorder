@@ -304,16 +304,17 @@ class App extends React.Component {
 							/>
 						</div>
 					</AppearAfter>}
+					{!isRecording && videoSource &&
 					<AppearAfter className={styles.buttonContainer} delay={500}>
 						<div>
 							<button
 								onClick={this.record}
-								hidden={isRecording || !videoSource}
 							>
 								Start recording
 							</button>
 						</div>
 					</AppearAfter>
+					}
 				</div>}
 				{hasSource && <div>
 					<div>
