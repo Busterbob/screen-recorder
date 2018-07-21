@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.browserAction.onClicked.addListener(() => {
-	const width = 650;
+	const width = 800;
 	const height = 500;
 	const top = (window.screen.availHeight - height) / 2;
 	const left = (window.screen.availWidth - width) / 2;

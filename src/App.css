@@ -85,6 +85,32 @@ video {
 	}
 
 	& .buttons {
-		
+		margin: 10px -40px;
+		text-align: center;
+
+
+		& button {
+			@apply --resetButton;
+			margin: 20px;
+			font-size: var(--small-font-size);
+
+			& span {
+				display: inline-block;
+				width: 42;
+				height: 42;
+				border-radius: 50%;
+				background: var(--white);
+				position: relative;
+				vertical-align: middle;
+				margin-right: 10px;
+
+				& svg {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+				}
+			}
+		}
 	}
 }

@@ -241,7 +241,7 @@ class App extends React.Component {
 					</div>
 				</div>
 				<div className={styles.controls}>
-					Record audio?<br />
+					<span className={styles.title}><h2>Record audio?</h2></span>
 					<label><input type="radio" name="audio" onChange={this.setAudio} value="none" disabled={isRecording} defaultChecked />None</label>
 					<label><input type="radio" name="audio" onChange={this.setAudio} value="mic" disabled={isRecording} />Microphone</label>
 					<label><input type="radio" name="audio" onChange={this.setAudio} value="system" hidden={chromeVersion < 51} disabled={isRecording} />System</label>
