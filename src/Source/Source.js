@@ -17,13 +17,13 @@ function Button({
 	);
 }
 
-function Source({ type, isRecording, onChange, sources }) {
+function Source({ value, isRecording, onChange, sources }) {
 	return (
 		<div className={styles.buttons}>
 			{sources.map(source => (
 				<Button
 					onClick={() => onChange(source.type)}
-					className={type === source.type ? styles.active : ''}
+					className={value === source.type ? styles.active : ''}
 					disabled={isRecording}
 					icon={source.icon}
 					label={source.label}
