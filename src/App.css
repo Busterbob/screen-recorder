@@ -191,3 +191,28 @@ video {
 		}
 	}
 }
+
+.buttonContainer {
+
+	&:global(.visible) {
+		opacity: 1;
+		transform: translate(0);
+	}
+
+	& button {
+		@apply --resetButton;
+		width: 100%;
+		background: var(--primary-color);
+		color: var(--white);
+		font-weight: bolder;
+		font-size: var(--small-font-size);
+		box-sizing: border-box;
+		padding: 20px;
+		border-radius: 30px;
+		transition: all .3s ease;
+
+		&:hover {
+			background: var(--secondary-color);
+		}
+	}
+}

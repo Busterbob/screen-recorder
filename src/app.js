@@ -304,7 +304,7 @@ class App extends React.Component {
 							/>
 						</div>
 					</AppearAfter>}
-					<AppearAfter className={styles.controls} delay={500}>
+					<AppearAfter className={styles.buttonContainer} delay={500}>
 						<div>
 							<button
 								onClick={this.record}
