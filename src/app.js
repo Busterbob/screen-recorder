@@ -264,6 +264,13 @@ class App extends React.Component {
 		analytics(['_trackEvent', 'video', 'saved']);
 	}
 
+	reset = () => {
+		this.setState({
+			hasSource: false,
+			videoSource: undefined,
+		});
+	}
+
 	render() {
 		const { isRecording, videoSource, audioSource, hasSource, src, hasStarted } = this.state;
 		return (
@@ -299,14 +306,17 @@ class App extends React.Component {
 					</AppearAfter>}
 					<AppearAfter className={styles.controls} delay={500}>
 						<div>
-							<button onClick={this.record} hidden={isRecording || !videoSource}>Start recording</button>
-							<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
+							<button
+								onClick={this.record}
+								hidden={isRecording || !videoSource}
+							>
+								Start recording
+							</button>
 						</div>
 					</AppearAfter>
 				</div>}
 				{hasSource && <div>
 					<div>
-						<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
 						<video
 							autoPlay={isRecording}
 							muted
@@ -316,7 +326,9 @@ class App extends React.Component {
 						/>
 					</div>
 					<div className={styles.controls}>
+						<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
 						<button onClick={this.save} disabled={isRecording}>Save</button>
+						<button onClick={this.reset} disabled={isRecording}>Reset</button>
 					</div>
 				</div>}
 			</div>
