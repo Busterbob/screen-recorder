@@ -12,7 +12,7 @@ const videoSources = [
 		icon: Desktop,
 		label: 'Screen',
 	},
-	{
+	/* {
 		type: 'window',
 		icon: Window,
 		label: 'Window',
@@ -21,7 +21,7 @@ const videoSources = [
 		type: 'tab',
 		icon: Tab,
 		label: 'Chrome Tab',
-	},
+	}, */
 	{
 		type: 'camera',
 		icon: Camera,
@@ -152,7 +152,7 @@ class App extends React.Component {
 						video: false,
 					}, this.gotAudio, getUserMediaError);
 				}
-				chrome.desktopCapture.chooseDesktopMedia(sourceType, this.onAccessApproved);
+				chrome.desktopCapture.chooseDesktopMedia(['window', 'screen', 'tab'], this.onAccessApproved);
 				break;
 			case 'camera':
 				navigator.getUserMedia({
