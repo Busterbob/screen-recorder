@@ -15,8 +15,7 @@ function Button({
 	const Icon = icon;
 	return (
 		<button onClick={onClick} className={className} disabled={disabled}>
-			<span><Icon /></span>
-			<span><Icon /></span>
+			<span><Icon /><Icon /></span>
 			{label}
 		</button>
 	);

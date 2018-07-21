@@ -38,12 +38,6 @@
 	}
 }
 
-button {
-	&.active {
-		font-weight: bold;
-	}
-}
-
 video {
 	width: 100%;
 	height: calc(100% - 200px);
@@ -94,6 +88,26 @@ video {
 			margin: 20px;
 			font-size: var(--small-font-size);
 
+			&.active {
+				& span {
+					border-color: var(--primary-color);
+				}
+			}
+
+			&:hover {
+				& span {
+					& svg {
+						&:nth-child(2) {
+							transform: translate(-50%, -50%);
+						}
+
+						&:nth-child(1) {
+							transform: translate(-50%, 350%);
+						}
+					}
+				}
+			}
+
 			& span {
 				display: inline-block;
 				width: 42;
@@ -103,12 +117,25 @@ video {
 				position: relative;
 				vertical-align: middle;
 				margin-right: 10px;
+				overflow: hidden;
+				border: solid 2px transparent;
+				transition: all .3s ease;
 
 				& svg {
 					position: absolute;
-					top: 50%;
-					left: 50%;
-					transform: translate(-50%, -50%);
+					transition: all .3s ease;
+
+					&:nth-child(1) {
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+					}
+
+					&:nth-child(2) {
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -350%);
+					}
 				}
 			}
 		}
