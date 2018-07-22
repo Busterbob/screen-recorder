@@ -321,8 +321,8 @@ class App extends React.Component {
 					<AppearAfter className={classNames(styles.buttonContainer, styles.flex)} delay={500}>
 						<div>
 							<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}>Stop Recording</button>
-							<button onClick={this.save} disabled={isRecording}>Save</button>
-							<button onClick={this.reset} disabled={isRecording} className={styles.back}>Reset</button>
+							<button onClick={this.save} hidden={isRecording}>Save</button>
+							<button onClick={this.reset} hidden={isRecording} className={styles.back}>New recording</button>
 						</div>
 					</AppearAfter>
 					<div>
