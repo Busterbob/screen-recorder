@@ -318,22 +318,24 @@ class App extends React.Component {
 					}
 				</div>}
 				{hasSource && <div>
-					<AppearAfter className={classNames(styles.buttonContainer, styles.flex)} delay={500}>
+					<AppearAfter className={classNames(styles.buttonContainer, styles.flex)}>
 						<div>
-							<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}>Stop Recording</button>
+							<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}><i />Stop Recording</button>
 							<button onClick={this.save} hidden={isRecording}>Save</button>
 							<button onClick={this.reset} hidden={isRecording} className={styles.back}>New recording</button>
 						</div>
 					</AppearAfter>
-					<div>
-						<video
-							autoPlay={isRecording}
-							muted
-							ref={(ref) => { this.video = ref; }}
-							src={src}
-							controls={!isRecording}
-						/>
-					</div>
+					<AppearAfter className={styles.video} delay={300}>
+						<div>
+							<video
+								autoPlay={isRecording}
+								muted
+								ref={(ref) => { this.video = ref; }}
+								src={src}
+								controls={!isRecording}
+							/>
+						</div>
+					</AppearAfter>
 				</div>}
 			</div>
 		);

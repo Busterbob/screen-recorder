@@ -44,11 +44,6 @@
 	}
 }
 
-video {
-	width: 100%;
-	height: auto;
-}
-
 .controls {
 	margin: 20px 0;
 
@@ -209,6 +204,16 @@ video {
 	}
 }
 
+@keyframes recording {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
 .buttonContainer {
 	&.flex {
 		display: flex;
@@ -220,6 +225,33 @@ video {
 
 			&.stop {
 				background: var(--error-color);
+				position: relative;
+
+				& i {
+					display: inline-block;
+					width: 12px;
+					height: 12px;
+					border-radius: 50%;
+					border: solid 1px var(--white);
+					position: relative;
+					left: -5px;
+					top: 2px;
+					position: relative;
+
+					&:after {
+						content: '';
+						display: inline-block;
+						width: 8px;
+						height: 8px;
+						border-radius: 50%;
+						background: var(--white);
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						animation: recording 1s forwards infinite;
+					}
+				}
 
 				&:hover {
 					background: color(var(--error-color) blackness(30%));
@@ -273,5 +305,22 @@ video {
 		&:hover {
 			background: var(--secondary-color);
 		}
+	}
+}
+
+.video {
+	transition: all .5s ease;
+	opacity: 0;
+	transform: translateY(20px);
+
+	&:global(.visible) {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+
+	& video {
+		width: 100%;
+		height: auto;
 	}
 }
