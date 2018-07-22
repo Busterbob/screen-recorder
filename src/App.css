@@ -8,6 +8,10 @@
 	width: 100%;
 	border-radius: 10px;
 	min-height: calc(100% - 40px);
+
+	@media (max-width: 400px) {
+		padding: 20px;
+	}
 }
 
 .logo {
@@ -101,6 +105,11 @@ video {
 		margin: 10px -40px;
 		text-align: center;
 
+		@media (max-width: 400px) {
+			margin: 10px 0;
+			text-align: left;
+		}
+
 		&:global(.visible) {
 			& button {
 				opacity: 1;
@@ -137,6 +146,12 @@ video {
 			opacity: 0;
 			transform: translateY(20px);
 			transition: all .5s ease;
+
+			@media (max-width: 400px) {
+				width: 100%;
+				margin: 10px 0;
+				text-align: left;
+			}
 
 			&.active {
 				font-weight: bold;
