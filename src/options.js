@@ -26,6 +26,29 @@ class Options extends React.Component {
 					{permissionGranted === false && <div className={styles.error}>Permission denied</div>}
 				</div>
 			</AppearAfter>
+			<AppearAfter className={styles.message} delay={300}>
+				<div>
+					<span className={styles.title}><h2>About</h2></span>
+					<p>
+						Screen Recorder is a Chrome extension to record a video from the camera or capture it from the screen (desktop, specific application window or Chrome tab).
+					</p>
+					<p>
+						Designed and Developed by:
+					</p>
+					<ul className={styles.team}>
+						<li>
+							<img src="https://i.imgur.com/QTAIxX7.jpg" alt="Erich Behrens"/>
+							<a href="https://eb1.it/" target="_blank">Erich Behrens</a>
+							<span>Developer</span>
+						</li>
+						<li>
+							<img src="https://i.imgur.com/TMJhnNc.jpg" alt="Luan Gjokaj"/>
+							<a href="https://www.riangle.com/" target="_blank">Luan Gjokaj</a>
+							<span>Designer</span>
+						</li>
+					</ul>
+				</div>
+			</AppearAfter>
 		</div>;
 	}
 }
