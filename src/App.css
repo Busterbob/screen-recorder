@@ -197,6 +197,11 @@ video {
 .buttonContainer {
 	&.flex {
 		display: flex;
+		margin: 10px -10px;
+
+		& button {
+			margin: 10px;
+		}
 	}
 
 	&:global(.visible) {
