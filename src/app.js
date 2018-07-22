@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import './assets/globals.css';
 import styles from './App.css';
-import { Logo, Desktop, Camera, Mic, Mute, Sound } from './assets/svg';
+import { Desktop, Camera, Mic, Mute, Sound } from './assets/svg';
 import AppearAfter from './AppearAfter';
 import Source from './Source';
+import Intro from './Intro';
 
 const videoSources = [
 	{
@@ -281,12 +282,7 @@ class App extends React.Component {
 		return (
 			<Fragment>
 				<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
-					<AppearAfter className={styles.logo}>
-						<div>
-							<Logo />
-							<h1>Screen Recoder</h1>
-						</div>
-					</AppearAfter>
+					<Intro />
 					{!hasSource && <div>
 						<AppearAfter className={styles.controls} delay={300}>
 							<div>

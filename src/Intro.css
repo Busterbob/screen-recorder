@@ -1,0 +1,35 @@
+@import './assets/variables.css';
+
+.logo {
+	text-align: center;
+	margin-bottom: 40px;
+
+	&:global(.visible) {
+		& h1,
+		& svg {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (max-width: 400px) {
+		margin-bottom: 20px;
+	}
+
+	& h1 {
+		display: block;
+		margin: 20px 0 0 0;
+		font-size: 25px;
+		color: var(--primary-color);
+		text-transform: none;
+		transition: all .5s ease;
+		opacity: 0;
+		transform: translateY(20px);
+	}
+
+	& svg {
+		opacity: 0;
+		transform: translateY(-20px);
+		transition: all .5s ease;
+	}
+}
