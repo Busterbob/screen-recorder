@@ -30,7 +30,9 @@ class Options extends React.Component {
 				<div>
 					<span className={styles.title}><h2>About</h2></span>
 					<p>
-						Screen Recorder is a Chrome extension to record a video from the camera or capture it from the screen (desktop, specific application window or Chrome tab).
+						Screen Recorder is a Chrome extension to record a video from the
+						camera or capture it from the screen
+						(desktop, specific application window or Chrome tab).
 					</p>
 					<p>
 						Designed and Developed by:
