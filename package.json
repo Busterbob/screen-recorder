@@ -1,7 +1,7 @@
 {
   "name": "screen-recorder",
-  "version": "0.1.0",
-  "description": "Chrome app to record video from camera, desktop, specific window or tab",
+  "version": "1.0.0",
+  "description": "Chrome extension to record video from camera, screen, specific window or tab",
   "main": "src/background.js",
   "scripts": {
     "dev": "webpack --watch",
