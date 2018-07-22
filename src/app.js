@@ -330,7 +330,7 @@ class App extends React.Component {
 								</button>
 								<button onClick={this.save} hidden={isRecording}>Save</button>
 								<button onClick={this.reset} hidden={isRecording} className={styles.back}>
-									New recording
+									New Recording
 								</button>
 							</div>
 						</AppearAfter>

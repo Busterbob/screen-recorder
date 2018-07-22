@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AppearAfter from './AppearAfter';
+import './assets/globals.css';
 import styles from './Options.css';
 
 class Options extends React.Component {
@@ -15,10 +17,15 @@ class Options extends React.Component {
 
 	render() {
 		const { permissionRequested, permissionGranted } = this.state;
-		return <div className={styles.message}>
-			{permissionRequested && <div className={styles.info}>Please grant permission</div>}
-			{permissionGranted === true && <div className={styles.success}>Permission granted</div>}
-			{permissionGranted === false && <div className={styles.error}>Permission denied</div>}
+		return <div className={styles.options}>
+			<AppearAfter className={styles.message}>
+				<div>
+					<span className={styles.title}><h2>Perimissions</h2></span>
+					{permissionRequested && <div className={styles.info}>Please grant permission</div>}
+					{permissionGranted === true && <div className={styles.success}>Permission granted</div>}
+					{permissionGranted === false && <div className={styles.error}>Permission denied</div>}
+				</div>
+			</AppearAfter>
 		</div>;
 	}
 }
