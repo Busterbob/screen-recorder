@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import AppearAfter from './AppearAfter';
 import './assets/globals.css';
 import styles from './Options.css';
+import Intro from './Intro';
 
 class Options extends React.Component {
 	state = { permissionRequested: false }
@@ -19,6 +20,7 @@ class Options extends React.Component {
 	render() {
 		const { permissionRequested, permissionGranted } = this.state;
 		return <div className={styles.options}>
+			<Intro />
 			<AppearAfter className={styles.message}>
 				<div>
 					<span className={styles.title}><h2>Recording permission</h2></span>
