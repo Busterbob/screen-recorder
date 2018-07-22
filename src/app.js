@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import './assets/globals.css';
@@ -272,40 +272,45 @@ class App extends React.Component {
 		});
 	}
 
+	openOptionsPage = () => {
+		chrome.runtime.openOptionsPage();
+	}
+
 	render() {
 		const { isRecording, videoSource, audioSource, hasSource, src, hasStarted } = this.state;
 		return (
-			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
-				<AppearAfter className={styles.logo}>
-					<div>
-						<Logo />
-						<h1>Screen Recoder</h1>
-					</div>
-				</AppearAfter>
-				{!hasSource && <div>
-					<AppearAfter className={styles.controls} delay={300}>
+			<Fragment>
+				<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
+					<AppearAfter className={styles.logo}>
 						<div>
-							<span className={styles.title}><h2>What do you want to capture?</h2></span>
-							<Source
-								value={videoSource}
-								isRecording={isRecording}
-								onChange={this.setVideoSource}
-								sources={videoSources}
-							/>
+							<Logo />
+							<h1>Screen Recoder</h1>
 						</div>
 					</AppearAfter>
-					{videoSource && <AppearAfter className={styles.controls} delay={400}>
-						<div>
-							<span className={styles.title}><h2>Record audio?</h2></span>
-							<Source
-								value={audioSource}
-								isRecording={isRecording}
-								onChange={this.setAudioSource}
-								sources={audioSources}
-							/>
-						</div>
-					</AppearAfter>}
-					{!isRecording && videoSource &&
+					{!hasSource && <div>
+						<AppearAfter className={styles.controls} delay={300}>
+							<div>
+								<span className={styles.title}><h2>What do you want to capture?</h2></span>
+								<Source
+									value={videoSource}
+									isRecording={isRecording}
+									onChange={this.setVideoSource}
+									sources={videoSources}
+								/>
+							</div>
+						</AppearAfter>
+						{videoSource && <AppearAfter className={styles.controls} delay={400}>
+							<div>
+								<span className={styles.title}><h2>Record audio?</h2></span>
+								<Source
+									value={audioSource}
+									isRecording={isRecording}
+									onChange={this.setAudioSource}
+									sources={audioSources}
+								/>
+							</div>
+						</AppearAfter>}
+						{!isRecording && videoSource &&
 					<AppearAfter className={styles.buttonContainer} delay={500}>
 						<div>
 							<button
@@ -315,29 +320,39 @@ class App extends React.Component {
 							</button>
 						</div>
 					</AppearAfter>
-					}
-				</div>}
-				{hasSource && <div>
-					<AppearAfter className={classNames(styles.buttonContainer, styles.flex)}>
-						<div>
-							<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}><i />Stop Recording</button>
-							<button onClick={this.save} hidden={isRecording}>Save</button>
-							<button onClick={this.reset} hidden={isRecording} className={styles.back}>New recording</button>
-						</div>
-					</AppearAfter>
-					<AppearAfter className={styles.video} delay={300}>
-						<div>
-							<video
-								autoPlay={isRecording}
-								muted
-								ref={(ref) => { this.video = ref; }}
-								src={src}
-								controls={!isRecording}
-							/>
-						</div>
-					</AppearAfter>
-				</div>}
-			</div>
+						}
+					</div>}
+					{hasSource && <div>
+						<AppearAfter className={classNames(styles.buttonContainer, styles.flex)}>
+							<div>
+								<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}>
+									<i />Stop Recording
+								</button>
+								<button onClick={this.save} hidden={isRecording}>Save</button>
+								<button onClick={this.reset} hidden={isRecording} className={styles.back}>
+									New recording
+								</button>
+							</div>
+						</AppearAfter>
+						<AppearAfter className={styles.video} delay={300}>
+							<div>
+								<video
+									autoPlay={isRecording}
+									muted
+									ref={(ref) => { this.video = ref; }}
+									src={src}
+									controls={!isRecording}
+								/>
+							</div>
+						</AppearAfter>
+					</div>}
+				</div>
+				<AppearAfter className={styles.footer} delay={500}>
+					<footer>
+						<a onClick={this.openOptionsPage}>About Screen Recorder</a>
+					</footer>
+				</AppearAfter>
+			</Fragment>
 		);
 	}
 }
