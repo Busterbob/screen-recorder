@@ -6,6 +6,7 @@ import styles from './Options.css';
 
 class Options extends React.Component {
 	state = { permissionRequested: false }
+
 	componentDidMount() {
 		this.setState({ permissionRequested: true });
 		navigator.getUserMedia({ audio: true, video: true }, () => {
@@ -20,7 +21,7 @@ class Options extends React.Component {
 		return <div className={styles.options}>
 			<AppearAfter className={styles.message}>
 				<div>
-					<span className={styles.title}><h2>Permissions</h2></span>
+					<span className={styles.title}><h2>Recording permission</h2></span>
 					{permissionRequested && <div className={styles.info}>Please grant permission</div>}
 					{permissionGranted === true && <div className={styles.success}>Permission granted</div>}
 					{permissionGranted === false && <div className={styles.error}>Permission denied</div>}
