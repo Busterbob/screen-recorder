@@ -39,13 +39,17 @@ class Options extends React.Component {
 					</p>
 					<ul className={styles.team}>
 						<li>
-							<img src="https://i.imgur.com/QTAIxX7.jpg" alt="Erich Behrens"/>
-							<a href="https://eb1.it/" target="_blank">Erich Behrens</a>
+							<a href="https://eb1.it/" target="_blank">
+								<img src="https://i.imgur.com/QTAIxX7.jpg" alt="Erich Behrens"/>
+								<i>Erich Behrens</i>
+							</a>
 							<span>Developer</span>
 						</li>
 						<li>
-							<img src="https://i.imgur.com/TMJhnNc.jpg" alt="Luan Gjokaj"/>
-							<a href="https://www.riangle.com/" target="_blank">Luan Gjokaj</a>
+							<a href="https://www.riangle.com/" target="_blank">
+								<img src="https://i.imgur.com/TMJhnNc.jpg" alt="Luan Gjokaj"/>
+								<i>Luan Gjokaj</i>
+							</a>
 							<span>Designer</span>
 						</li>
 					</ul>

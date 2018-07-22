@@ -103,6 +103,12 @@
 					&:hover {
 						color: var(--secondary-color);
 					}
+
+					& i {
+						display: block;
+						font-style: normal;
+						margin-top: 10px;
+					}
 				}
 
 				& span {
