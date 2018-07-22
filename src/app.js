@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import './assets/globals.css';
 import styles from './App.css';
-import { Logo, Desktop, Window, Tab, Camera } from './assets/svg';
+import { Logo, Desktop, Camera, Mic, Mute, Sound } from './assets/svg';
 import AppearAfter from './AppearAfter';
 import Source from './Source';
 
@@ -33,17 +33,17 @@ const videoSources = [
 const audioSources = [
 	{
 		type: 'none',
-		icon: Desktop,
+		icon: Mute,
 		label: 'None',
 	},
 	{
 		type: 'mic',
-		icon: Window,
+		icon: Mic,
 		label: 'Microphone',
 	},
 	{
 		type: 'system',
-		icon: Tab,
+		icon: Sound,
 		label: 'System',
 	},
 ];

@@ -157,12 +157,18 @@
 
 				& span {
 					border-color: var(--primary-color);
+
+					& svg {
+						opacity: 1;
+					}
 				}
 			}
 
 			&:hover {
 				& span {
 					& svg {
+						opacity: 1;
+
 						&:nth-child(2) {
 							transform: translate(-50%, -50%);
 						}
@@ -189,6 +195,7 @@
 
 				& svg {
 					position: absolute;
+					opacity: 0.5;
 					transition: all .5s ease;
 
 					&:nth-child(1) {
