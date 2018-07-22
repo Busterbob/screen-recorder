@@ -2,7 +2,7 @@
 
 Chrome extension to record a video from the camera or capture it from the screen (desktop, specific application window or Chrome tab).
 
-![Application screenshot](screen-recorder.png)
+![Application screenshot](preview.png)
 
 ## Extension on Chrome Web Store
 
