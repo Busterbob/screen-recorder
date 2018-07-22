@@ -1,7 +1,7 @@
 {
   "name": "screen-recorder",
-  "version": "0.1.0",
-  "description": "Chrome app to record video from camera, desktop, specific window or tab",
+  "version": "1.0.0",
+  "description": "Chrome extension to record video from camera, screen, specific window or tab",
   "main": "src/background.js",
   "scripts": {
     "dev": "webpack --watch",
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/erichbehrens/screen-recorder#readme",
   "dependencies": {
+    "classnames": "^2.2.6",
+    "postcss-import": "^11.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },

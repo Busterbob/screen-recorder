@@ -1,11 +1,52 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
+import './assets/globals.css';
 import styles from './App.css';
+import { Logo, Desktop, Camera, Mic, Mute, Sound } from './assets/svg';
+import AppearAfter from './AppearAfter';
+import Source from './Source';
 
-function getChromeVersion() {
-	const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
-	return raw ? parseInt(raw[2], 10) : false;
-}
+const videoSources = [
+	{
+		type: 'screen',
+		icon: Desktop,
+		label: 'Screen',
+	},
+	/* {
+		type: 'window',
+		icon: Window,
+		label: 'Window',
+	},
+	{
+		type: 'tab',
+		icon: Tab,
+		label: 'Chrome Tab',
+	}, */
+	{
+		type: 'camera',
+		icon: Camera,
+		label: 'Camera',
+	},
+];
+
+const audioSources = [
+	{
+		type: 'none',
+		icon: Mute,
+		label: 'None',
+	},
+	{
+		type: 'mic',
+		icon: Mic,
+		label: 'Microphone',
+	},
+	{
+		type: 'system',
+		icon: Sound,
+		label: 'System',
+	},
+];
 
 function getUserMediaError() {
 	chrome.runtime.openOptionsPage();
@@ -42,7 +83,8 @@ class App extends React.Component {
 		includeAudioMic: false,
 		includeAudioSystem: false,
 		hasSource: false,
-		type: undefined,
+		videoSource: undefined,
+		audioSource: 'none',
 	};
 
 	audioStream;
@@ -50,13 +92,18 @@ class App extends React.Component {
 	localStream;
 	recordedChunks = [];
 
-	setAudio = (event) => {
-		analytics(['_trackEvent', 'video', 'setAudio', event.target.value]);
-		switch (event.target.value) {
+	setVideoSource = (type) => {
+		this.setState({ videoSource: type });
+	}
+
+	setAudioSource = (type) => {
+		analytics(['_trackEvent', 'video', 'setAudio', type]);
+		switch (type) {
 			case 'mic':
 				this.setState({
 					includeAudioMic: true,
 					includeAudioSystem: false,
+					audioSource: type,
 				});
 				navigator.getUserMedia({
 					audio: true,
@@ -67,19 +114,21 @@ class App extends React.Component {
 				this.setState({
 					includeAudioMic: false,
 					includeAudioSystem: true,
+					audioSource: type,
 				});
 				break;
 			default:
 				this.setState({
 					includeAudioMic: false,
 					includeAudioSystem: false,
+					audioSource: type,
 				});
 		}
 	}
 
 	record = () => {
 		console.log('Start recording');
-		analytics(['_trackEvent', 'video', 'recordingStarted', this.state.type]);
+		analytics(['_trackEvent', 'video', 'recordingStarted', this.state.videoSource]);
 		if (this.video) {
 			this.video.muted = true; // prevent audio loopback
 		}
@@ -90,8 +139,8 @@ class App extends React.Component {
 			window.moveTo(window.screenLeft, window.screenTop - (delta / 2));
 		}
 		this.recordedChunks = [];
-		const sourceType = [this.state.type];
-		switch (this.state.type) {
+		const sourceType = [this.state.videoSource];
+		switch (this.state.videoSource) {
 			case 'window':
 			case 'screen':
 			case 'tab':
@@ -104,7 +153,7 @@ class App extends React.Component {
 						video: false,
 					}, this.gotAudio, getUserMediaError);
 				}
-				chrome.desktopCapture.chooseDesktopMedia(sourceType, this.onAccessApproved);
+				chrome.desktopCapture.chooseDesktopMedia(['window', 'screen', 'tab'], this.onAccessApproved);
 				break;
 			case 'camera':
 				navigator.getUserMedia({
@@ -216,43 +265,94 @@ class App extends React.Component {
 		analytics(['_trackEvent', 'video', 'saved']);
 	}
 
+	reset = () => {
+		this.setState({
+			hasSource: false,
+			videoSource: undefined,
+		});
+	}
+
+	openOptionsPage = () => {
+		chrome.runtime.openOptionsPage();
+	}
+
 	render() {
-		const chromeVersion = getChromeVersion();
-		const { isRecording, type, hasSource, src, hasStarted } = this.state;
+		const { isRecording, videoSource, audioSource, hasSource, src, hasStarted } = this.state;
 		return (
-			<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
-				<div className={styles.controls}>
-					What do you want to capture?<br />
-					<button onClick={() => this.setState({ type: 'screen' })} className={type === 'screen' ? styles.active : ''} disabled={isRecording}>Desktop</button>
-					<button onClick={() => this.setState({ type: 'window' })} className={type === 'window' ? styles.active : ''} disabled={isRecording}>Window</button>
-					<button onClick={() => this.setState({ type: 'tab' })} className={type === 'tab' ? styles.active : ''} hidden={chromeVersion < 53} disabled={isRecording}>Chrome Tab</button>
-					<button onClick={() => this.setState({ type: 'camera' })} className={type === 'camera' ? styles.active : ''} disabled={isRecording}>Camera</button>
+			<Fragment>
+				<div className={`${styles.app} ${hasStarted || isRecording ? styles.recording : ''}`}>
+					<AppearAfter className={styles.logo}>
+						<div>
+							<Logo />
+							<h1>Screen Recoder</h1>
+						</div>
+					</AppearAfter>
+					{!hasSource && <div>
+						<AppearAfter className={styles.controls} delay={300}>
+							<div>
+								<span className={styles.title}><h2>What do you want to capture?</h2></span>
+								<Source
+									value={videoSource}
+									isRecording={isRecording}
+									onChange={this.setVideoSource}
+									sources={videoSources}
+								/>
+							</div>
+						</AppearAfter>
+						{videoSource && <AppearAfter className={styles.controls} delay={400}>
+							<div>
+								<span className={styles.title}><h2>Record audio?</h2></span>
+								<Source
+									value={audioSource}
+									isRecording={isRecording}
+									onChange={this.setAudioSource}
+									sources={audioSources}
+								/>
+							</div>
+						</AppearAfter>}
+						{!isRecording && videoSource &&
+					<AppearAfter className={styles.buttonContainer} delay={500}>
+						<div>
+							<button
+								onClick={this.record}
+							>
+								Start recording
+							</button>
+						</div>
+					</AppearAfter>
+						}
+					</div>}
+					{hasSource && <div>
+						<AppearAfter className={classNames(styles.buttonContainer, styles.flex)}>
+							<div>
+								<button onClick={this.stopRecording} hidden={!isRecording} className={styles.stop}>
+									<i />Stop Recording
+								</button>
+								<button onClick={this.save} hidden={isRecording}>Save</button>
+								<button onClick={this.reset} hidden={isRecording} className={styles.back}>
+									New Recording
+								</button>
+							</div>
+						</AppearAfter>
+						<AppearAfter className={styles.video} delay={300}>
+							<div>
+								<video
+									autoPlay={isRecording}
+									muted
+									ref={(ref) => { this.video = ref; }}
+									src={src}
+									controls={!isRecording}
+								/>
+							</div>
+						</AppearAfter>
+					</div>}
 				</div>
-				<div className={styles.controls}>
-					Record audio?<br />
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="none" disabled={isRecording} defaultChecked />None</label>
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="mic" disabled={isRecording} />Microphone</label>
-					<label><input type="radio" name="audio" onChange={this.setAudio} value="system" hidden={chromeVersion < 51} disabled={isRecording} />System</label>
-				</div>
-				<div className={styles.controls}>
-					<button onClick={this.record} hidden={isRecording || !type}>Start recording</button>
-					<button onClick={this.stopRecording} hidden={!isRecording}>Stop Recording</button>
-				</div>
-				{hasSource && <div>
-					<div>
-						<video
-							autoPlay={isRecording}
-							muted
-							ref={(ref) => { this.video = ref; }}
-							src={src}
-							controls={!isRecording}
-						/>
-					</div>
-					<div className={styles.controls}>
-						<button onClick={this.save} disabled={isRecording}>Save</button>
-					</div>
-				</div>}
-			</div>
+				<AppearAfter className={styles.footer} delay={500}>
+					<footer>
+						<a onClick={this.openOptionsPage}>About Screen Recorder</a>
+					</footer>
+				</AppearAfter>
+			</Fragment>
 		);
 	}
 }
