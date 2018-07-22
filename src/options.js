@@ -20,7 +20,7 @@ class Options extends React.Component {
 		return <div className={styles.options}>
 			<AppearAfter className={styles.message}>
 				<div>
-					<span className={styles.title}><h2>Perimissions</h2></span>
+					<span className={styles.title}><h2>Permissions</h2></span>
 					{permissionRequested && <div className={styles.info}>Please grant permission</div>}
 					{permissionGranted === true && <div className={styles.success}>Permission granted</div>}
 					{permissionGranted === false && <div className={styles.error}>Permission denied</div>}
