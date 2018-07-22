@@ -201,6 +201,24 @@ video {
 
 		& button {
 			margin: 10px;
+			transform: translateY(-20px);
+
+			&.stop {
+				background: var(--error-color);
+
+				&:hover {
+					background: color(var(--error-color) blackness(30%));
+				}
+			}
+
+			&.back {
+				background: var(--white);
+				color: var(--primary-color);
+
+				&:hover {
+					background: var(--super-gray);
+				}
+			}
 		}
 	}
 
@@ -208,6 +226,18 @@ video {
 		& button {
 			opacity: 1;
 			transform: translateY(0);
+
+			&:nth-child(1) {
+				transition-delay: .1s;
+			}
+
+			&:nth-child(2) {
+				transition-delay: .2s;
+			}
+
+			&:nth-child(3) {
+				transition-delay: .3s;
+			}
 		}
 	}
 
