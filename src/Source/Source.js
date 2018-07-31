@@ -30,6 +30,7 @@ function Source({ value, isRecording, onChange, sources }) {
 							disabled={isRecording}
 							icon={source.icon}
 							label={source.label}
+							key={source.type}
 						/>
 					))}
 				</div>

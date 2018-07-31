@@ -3,7 +3,7 @@ import React from 'react';
 function Logo() {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="64" height="61" viewBox="0 0 64 61">
-			<g fill="none" fill-rule="evenodd">
+			<g fill="none" fillRule="evenodd">
 				<path
 					fill="#25307E"
 					d="M12.034188,50.3247863 L51.965812,50.3247863 C51.965812,59.2368684 43.0268135,60.991453 32,60.991453 C20.9731865,60.991453 12.034188,59.2368684 12.034188,50.3247863 Z"

@@ -3,7 +3,7 @@ import React from 'react';
 function Tab() {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24">
-			<g fill="none" fill-rule="evenodd" transform="translate(-442 -319)">
+			<g fill="none" fillRule="evenodd" transform="translate(-442 -319)">
 				<rect width="800" height="690" fill="#FFF"/>
 				<rect width="700" height="590" x="50" y="50" fill="#F2F2F2" rx="10"/>
 				<g transform="translate(434.333 310)">
