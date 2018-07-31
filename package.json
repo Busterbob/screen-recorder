@@ -4,7 +4,7 @@
   "description": "Chrome extension to record video from camera, screen, specific window or tab",
   "main": "src/background.js",
   "scripts": {
-    "dev": "webpack --watch",
+    "start": "webpack --watch",
     "build": "webpack -p",
     "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
