@@ -1,12 +1,3 @@
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	chrome.desktopCapture.chooseDesktopMedia(
-		['screen', 'window'],
-		(id) => {
-			sendResponse({ id });
-		},
-	);
-});
-
 chrome.browserAction.onClicked.addListener(() => {
 	const width = 800;
 	const height = 650;
