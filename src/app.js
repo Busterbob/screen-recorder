@@ -197,8 +197,7 @@ class App extends React.Component {
 
 	gotMediaStream = (stream) => {
 		console.log('Received local stream');
-		const src = URL.createObjectURL(stream);
-		this.setState({ hasSource: true, src });
+		this.setState({ hasSource: true }, () => { this.video.srcObject = stream; });
 		this.localStream = stream;
 		stream.getTracks().forEach((track) => {
 			track.addEventListener('ended', () => {
@@ -251,6 +250,7 @@ class App extends React.Component {
 	recorderOnStop = () => {
 		const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
 		const src = URL.createObjectURL(blob);
+		this.video.srcObject = null;
 		this.setState({ isRecording: false, hasSource: true, src });
 		chrome.runtime.sendMessage({ type: RECORDING_STOPPED });
 	}
