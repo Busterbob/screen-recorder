@@ -7,6 +7,7 @@ import { Desktop, Camera, Mic, Mute, Sound } from './assets/svg';
 import AppearAfter from './AppearAfter';
 import Source from './Source';
 import Intro from './Intro';
+import { RECORDING_STOPPED } from './constants';
 
 const videoSources = [
 	{
@@ -251,6 +252,7 @@ class App extends React.Component {
 		const blob = new Blob(this.recordedChunks, { type: 'video/webm' });
 		const src = URL.createObjectURL(blob);
 		this.setState({ isRecording: false, hasSource: true, src });
+		chrome.runtime.sendMessage({ type: RECORDING_STOPPED });
 	}
 
 	stopRecording = () => {
@@ -307,15 +309,15 @@ class App extends React.Component {
 							</div>
 						</AppearAfter>}
 						{!isRecording && videoSource &&
-					<AppearAfter className={styles.buttonContainer} delay={500}>
-						<div>
-							<button
-								onClick={this.record}
-							>
-								Start recording
-							</button>
-						</div>
-					</AppearAfter>
+							<AppearAfter className={styles.buttonContainer} delay={500}>
+								<div>
+									<button
+										onClick={this.record}
+									>
+										Start recording
+									</button>
+								</div>
+							</AppearAfter>
 						}
 					</div>}
 					{hasSource && <div>
